@@ -13,7 +13,13 @@ class AsyncForm {
    * через registerEvents()
    * */
   constructor( element ) {
+    console.log('constructor');
+    if (element === undefined) {
+      console.error('Async Form element undefined')
+    } 
     this.element = element;
+    this.registerEvents();
+    console.log('constructor_passe');
   }
 
   /**
@@ -21,8 +27,15 @@ class AsyncForm {
    * вызывает метод submit()
    * */
   registerEvents() {
-element.submit();
-return false
+
+    this.element.addEventListener( 'submit', function(event) {
+      
+      console.log('submit event')
+      //this.submit();
+      event.preventDefault();
+       } );
+   // непонятно почему не работает, из консоли все ок
+    
   }
 
   /**

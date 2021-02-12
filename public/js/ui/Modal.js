@@ -13,7 +13,12 @@ class Modal {
    * необходимо выкинуть ошибку.
    * */
   constructor( element ) {
+    console.log('Modal constructor');
+     if (element === undefined) {
+       console.error('Modal element undefined')
+     } 
      this.element = element;
+     this.registerEvents();
 
   }
 
@@ -23,35 +28,27 @@ class Modal {
    * (с помощью метода Modal.onClose)
    * */
   registerEvents() {
+
+    this.onClose = this.onClose.bind( this );
     let close = Array.from(document.querySelectorAll('[data-dismiss = "modal"]'))
     for (let i = 0; i < close.length; i++) {
-      close[i].onclick = function() {
-       
-        // так неправильно, надо через метод Modal.onClose
-        close[i].closest('.modal').style.display = 'none'
-        //.element.style.display = 'none'
-       // console.log(close[i].onClose(close[i]));
-        //console.log('vod close')
-        //close[i].onClose(close[i]);
-        //Modal.onClose(i);
-      }
-    }
+      close[i].addEventListener( 'click', this.onClose );
+   }
   }
-
   /**
    * Срабатывает после нажатия на элементы, закрывающие окно.
    * Закрывает текущее окно (close.length)
    * */
   onClose( e ) {
-
-    //сейчас неправильно
-      e.closest('.modal').element.style.display = 'none'
+    
+    this.close()
+    
   }
   /**
    * Удаляет обработчики событий
    * */
   unregisterEvents() {
-
+    this.element.removeEventListener( 'click', this.onClose );
   }
   /**
    * Открывает окно: устанавливает CSS-свойство display
@@ -68,3 +65,4 @@ class Modal {
     this.element.style.display = 'none' 
   }
 }
+  

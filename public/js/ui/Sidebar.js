@@ -18,19 +18,15 @@ class Sidebar {
    * при нажатии на кнопку .sidebar-toggle
    * */
   static initToggleButton() {
-    
-    document.getElementsByClassName('sidebar-toggle visible-xs')[0].onclick = function() {
-      console.log(1234);
-      if (document.getElementsByClassName('skin-blue sidebar-mini app')[0].classList.contains('sidebar-open')) {
-        document.getElementsByClassName('skin-blue sidebar-mini app')[0].classList.remove('sidebar-open')
-        document.getElementsByClassName('skin-blue sidebar-mini app')[0].classList.remove('sidebar-collapse')
-      } else {
-        document.getElementsByClassName('skin-blue sidebar-mini app')[0].classList.add('sidebar-open')
-        document.getElementsByClassName('skin-blue sidebar-mini app')[0].classList.add('sidebar-collapse')
-      }
+   
+    document.getElementsByClassName('visible-xs')[0].onclick = function() {
+        document.getElementsByClassName('skin-blue sidebar-mini app')[0].classList.toggle('sidebar-open')
+        document.getElementsByClassName('skin-blue sidebar-mini app')[0].classList.toggle('sidebar-collapse')
     }
 
   }
+   
+  
 
   /**
    * При нажатии на кнопку входа, показывает окно входа
@@ -40,24 +36,25 @@ class Sidebar {
    * выходу устанавливает App.setState( 'init' )
    * */
   static initAuthLinks() {
-      const menuItems = Array.from(document.getElementsByClassName('menu-item'))
-      for (let i = 0; i < menuItems.length; i++) {
-        menuItems[i].onclick = function(){
-          if (menuItems[i].classList.contains('menu-item_login')) {
-            App.getModal('login').open()
-            App.getModal('login').registerEvents()
-          } else if (menuItems[i].classList.contains('menu-item_register')) {
-            App.getModal('register').open()
-          } else if (menuItems[i].classList.contains('menu-item_logout')) {
-            console.log(App.getModal('logout'))
-          }
-          console.log(345);
-        }  
+    document.getElementsByClassName('menu-item_login')[0].onclick = function() {
+      App.getModal('login').open(); 
+    } 
+    document.getElementsByClassName('menu-item_register')[0].onclick = function() {
+      App.getModal('register').open();
+    } 
+    document.getElementsByClassName('menu-item_logout')[0].onclick = function() {       
+      
+      /* Необходимо реализовать класс User.logout 
+      
+      if user.logout = {
+    "success": true
+}
+      */
+ 
+      App.setState( 'init' )
       }
 
-    //const element = App.getModal()
-  //modal = new Modal( element );
 
-  }
+}
 
 }
