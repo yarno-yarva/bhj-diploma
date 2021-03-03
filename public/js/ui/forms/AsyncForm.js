@@ -13,13 +13,11 @@ class AsyncForm {
    * через registerEvents()
    * */
   constructor( element ) {
-    console.log('constructor');
     if (element === undefined) {
       console.error('Async Form element undefined')
     } 
     this.element = element;
     this.registerEvents();
-    console.log('constructor_passe');
   }
 
   /**
@@ -27,15 +25,12 @@ class AsyncForm {
    * вызывает метод submit()
    * */
   registerEvents() {
-
+    var me = this;
     this.element.addEventListener( 'submit', function(event) {
-      
-      console.log('submit event')
-      //this.submit();
-      event.preventDefault();
-       } );
-   // непонятно почему не работает, из консоли все ок
-    
+      event.preventDefault();     
+      //console.log('in submit listener');
+      me.submit();
+    } );
   }
 
   /**
@@ -46,7 +41,16 @@ class AsyncForm {
    * }
    * */
   getData() {
-
+    const formData = new FormData( this.element ),
+      entries = formData.entries();
+    let data = {};
+    for (let item of entries) {
+      let keys = item[ 0 ], value = item[ 1 ];
+      data[keys] = `${item[1]}`;
+     // console.log( `${keys}: ${value}` );     
+    }
+    //console.log(data);
+    return data;
   }
 
   onSubmit( options ) {
@@ -58,8 +62,7 @@ class AsyncForm {
    * данные, полученные из метода getData()
    * */
   submit() {
-    onSubmit( options ) 
-      console.log( options ); // выведет данные, которые передаст onsubmit
-    
+    //console.log( this.getData()); // выведет данные, которые передаст onsubmit    
+    this.onSubmit( this.getData() ) 
   }
 }

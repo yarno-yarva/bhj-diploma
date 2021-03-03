@@ -33,7 +33,8 @@ class User {
    * авторизованном пользователе.
    * */
   static fetch( data, callback = f => f ) {
-
+    console.log('init fetch')
+    console.log(data);
   }
 
   /**
@@ -53,7 +54,9 @@ class User {
    * User.setCurrent.
    * */
   static register( data, callback = f => f ) {
-
+ 
+    const xhr = createRequest(data);
+    console.log (data);
   }
 
   /**
@@ -61,6 +64,6 @@ class User {
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
   static logout( data, callback = f => f ) {
-
+     
   }
 }

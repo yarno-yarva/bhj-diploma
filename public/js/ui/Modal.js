@@ -13,7 +13,7 @@ class Modal {
    * необходимо выкинуть ошибку.
    * */
   constructor( element ) {
-    console.log('Modal constructor');
+    //console.log('Modal constructor');
      if (element === undefined) {
        console.error('Modal element undefined')
      } 
